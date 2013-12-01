@@ -32,8 +32,48 @@
         UILongPressGestureRecognizer *pressRecognizer = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPress:)];
         // add the subclass UIRecognizer to the view
         [self addGestureRecognizer:pressRecognizer];
+        // Assign the instance variable to an instance of pan gesture
+        moveRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(moveLine:)];
+        [moveRecognizer setDelegate:self];
+        [moveRecognizer setCancelsTouchesInView:NO];
+        [self addGestureRecognizer:moveRecognizer];
     }
     return self;
+}
+
+-(void)moveLine:(UIPanGestureRecognizer *)gr
+{
+    // If we havent selected a line - dont do anything
+    if(![self selectedLine]) return;
+    
+    // When the pan recognizer changes position
+    if([gr state]==UIGestureRecognizerStateChanged){
+        // How far has the pan moved
+        CGPoint translation = [gr translationInView:self];
+        
+        // Add teh translation to the current begin and end points of the line
+        CGPoint begin = [[self selectedLine] begin];
+        CGPoint end = [[self selectedLine] end];
+        begin.x += translation.x;
+        begin.y += translation.y;
+        end.x += translation.x;
+        end.y += translation.y;
+        
+        // Set the new beginning and end points of the line
+        [[self selectedLine] setBegin:begin];
+        [[self selectedLine] setEnd:end];
+        
+        // Redraw the screen
+        [self setNeedsDisplay];
+        
+        [gr setTranslation:CGPointZero inView:self];
+    }
+}
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)other
+{
+    if (gestureRecognizer == moveRecognizer)return YES;
+    return NO;
 }
 
 -(void)longPress:(UIGestureRecognizer *)gr
