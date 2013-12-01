@@ -19,6 +19,9 @@
 		CB997C6D184AE0BC006824AE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB997C55184AE0BC006824AE /* UIKit.framework */; };
 		CB997C75184AE0BC006824AE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB997C73184AE0BC006824AE /* InfoPlist.strings */; };
 		CB997C77184AE0BC006824AE /* TouchTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB997C76184AE0BC006824AE /* TouchTrackerTests.m */; };
+		CB997C82184AE314006824AE /* Line.m in Sources */ = {isa = PBXBuildFile; fileRef = CB997C81184AE314006824AE /* Line.m */; };
+		CB997C86184AE3B9006824AE /* TouchDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB997C85184AE3B9006824AE /* TouchDrawView.m */; };
+		CB997C8A184AE45B006824AE /* TouchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB997C89184AE45B006824AE /* TouchViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,12 @@
 		CB997C72184AE0BC006824AE /* TouchTrackerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TouchTrackerTests-Info.plist"; sourceTree = "<group>"; };
 		CB997C74184AE0BC006824AE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CB997C76184AE0BC006824AE /* TouchTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchTrackerTests.m; sourceTree = "<group>"; };
+		CB997C80184AE314006824AE /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
+		CB997C81184AE314006824AE /* Line.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Line.m; sourceTree = "<group>"; };
+		CB997C84184AE3B9006824AE /* TouchDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchDrawView.h; path = ../TouchDrawView.h; sourceTree = "<group>"; };
+		CB997C85184AE3B9006824AE /* TouchDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TouchDrawView.m; path = ../TouchDrawView.m; sourceTree = "<group>"; };
+		CB997C88184AE45B006824AE /* TouchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchViewController.h; sourceTree = "<group>"; };
+		CB997C89184AE45B006824AE /* TouchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +116,8 @@
 		CB997C57184AE0BC006824AE /* TouchTracker */ = {
 			isa = PBXGroup;
 			children = (
+				CB997C87184AE3C3006824AE /* Views */,
+				CB997C83184AE31E006824AE /* Models */,
 				CB997C60184AE0BC006824AE /* AppDelegate.h */,
 				CB997C61184AE0BC006824AE /* AppDelegate.m */,
 				CB997C63184AE0BC006824AE /* Images.xcassets */,
@@ -142,6 +153,27 @@
 				CB997C73184AE0BC006824AE /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CB997C83184AE31E006824AE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CB997C80184AE314006824AE /* Line.h */,
+				CB997C81184AE314006824AE /* Line.m */,
+			);
+			name = Models;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		CB997C87184AE3C3006824AE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CB997C84184AE3B9006824AE /* TouchDrawView.h */,
+				CB997C88184AE45B006824AE /* TouchViewController.h */,
+				CB997C89184AE45B006824AE /* TouchViewController.m */,
+				CB997C85184AE3B9006824AE /* TouchDrawView.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +272,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB997C62184AE0BC006824AE /* AppDelegate.m in Sources */,
+				CB997C8A184AE45B006824AE /* TouchViewController.m in Sources */,
+				CB997C82184AE314006824AE /* Line.m in Sources */,
+				CB997C86184AE3B9006824AE /* TouchDrawView.m in Sources */,
 				CB997C5E184AE0BC006824AE /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
