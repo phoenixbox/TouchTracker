@@ -41,6 +41,39 @@
     // If there is just a tap remove all lines in process so that the tap doestn result in a new line dot
     [linesInProcess removeAllObjects];
     
+    if ([self selectedLine]){
+        [self becomeFirstResponder];
+        
+        // Obtain the menu controller via singleton
+        UIMenuController *menu = [UIMenuController sharedMenuController];
+        
+        // Create a new 'delete' UIMenuItem
+        UIMenuItem *deleteItem = [[UIMenuItem alloc]initWithTitle:@"DELETE"
+                                                           action:@selector(deleteLine:)];
+        [menu setMenuItems:[NSArray arrayWithObject:deleteItem]];
+        
+        // Tell the menu where it shoudl come from and show it
+        [menu setTargetRect:CGRectMake(point.x,point.y,2,2) inView:self];
+        [menu setMenuVisible:YES animated:YES];
+    } else{
+        // Hide the menu if no item is selected
+        [[UIMenuController sharedMenuController]setMenuVisible:NO animated:YES];
+    }
+    
+    [self setNeedsDisplay];
+}
+
+-(BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+-(void)deleteLine:(id)sender
+{
+    // Remove the selected line from the list of completeLines
+    [completeLines removeObject:[self selectedLine]];
+    
+    // Redraw everything
     [self setNeedsDisplay];
 }
 
