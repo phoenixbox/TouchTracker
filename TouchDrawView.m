@@ -23,8 +23,21 @@
         [self setBackgroundColor:[UIColor whiteColor]];
         
         [self setMultipleTouchEnabled:YES];
+        
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+        [self addGestureRecognizer:tapRecognizer];
     }
     return self;
+}
+
+-(void)tap:(UIGestureRecognizer *)gr
+{
+    NSLog(@"Recognized tap");
+    
+    // If there is just a tap remove all lines in process so that the tap doestn result in a new line dot
+    [linesInProcess removeAllObjects];
+    
+    [self setNeedsDisplay];
 }
 
 -(void)drawRect:(CGRect)rect
