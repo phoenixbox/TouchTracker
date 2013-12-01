@@ -10,6 +10,7 @@
 #import "Line.h"
 
 @implementation TouchDrawView
+@synthesize selectedLine;
 
 -(id)initWithFrame:(CGRect)r
 {
@@ -33,6 +34,9 @@
 -(void)tap:(UIGestureRecognizer *)gr
 {
     NSLog(@"Recognized tap");
+    
+    CGPoint point = [gr locationInView:self];
+    [self setSelectedLine:[self lineAtPoint:point]];
     
     // If there is just a tap remove all lines in process so that the tap doestn result in a new line dot
     [linesInProcess removeAllObjects];
@@ -60,6 +64,16 @@
         Line *line = [linesInProcess objectForKey:v];
         CGContextMoveToPoint(context, [line begin].x, [line begin].y);
         CGContextAddLineToPoint(context, [line end].x, [line end].y);
+        CGContextStrokePath(context);
+    }
+    
+    // If self has a selected line, draw it green - using its own properties
+    if ([self selectedLine]) {
+        [[UIColor greenColor] set];
+        CGContextMoveToPoint(context, [[self selectedLine] begin].x,
+                             [[self selectedLine] begin].y);
+        CGContextAddLineToPoint(context, [[self selectedLine] end].x,
+                                [[self selectedLine] end].y);
         CGContextStrokePath(context);
     }
 }
@@ -135,5 +149,26 @@
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self endTouches:touches];
+}
+-(Line *)lineAtPoint:(CGPoint)p
+{
+    // Find a line close to the touch point
+    for (Line *l in completeLines){
+        CGPoint start = [l begin];
+        CGPoint end = [l end];
+        
+        // Approximate by checking a few points on the line
+        for(float t = 0.0; t <= 1.0; t += 0.05){
+            float x = start.x +t * (end.x - start.x);
+            float y = start.y +t * (end.y - start.y);
+            
+            // If the tapped point is within 20 points, return the line
+            if (hypot(x - p.x, y - p.y)<20.0){
+                return l;
+            }
+        }
+    }
+    // If nothing is close enough to the tapped point, then we didnt select a line
+    return nil;
 }
 @end
