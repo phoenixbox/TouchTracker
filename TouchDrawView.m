@@ -51,7 +51,7 @@
         // How far has the pan moved
         CGPoint translation = [gr translationInView:self];
         
-        // Add teh translation to the current begin and end points of the line
+        // Add the translation to the current begin and end points of the line
         CGPoint begin = [[self selectedLine] begin];
         CGPoint end = [[self selectedLine] end];
         begin.x += translation.x;
