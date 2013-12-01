@@ -27,8 +27,31 @@
         
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
         [self addGestureRecognizer:tapRecognizer];
+        
+        // Instantiate subclass
+        UILongPressGestureRecognizer *pressRecognizer = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPress:)];
+        // add the subclass UIRecognizer to the view
+        [self addGestureRecognizer:pressRecognizer];
     }
     return self;
+}
+
+-(void)longPress:(UIGestureRecognizer *)gr
+{
+    if([gr state]==UIGestureRecognizerStateBegan){
+        // Remove the menu if it is visible
+        [[UIMenuController sharedMenuController]setMenuVisible:NO animated:YES];
+        
+        CGPoint point = [gr locationInView:self];
+        [self setSelectedLine:[self lineAtPoint:point]];
+        
+        if ([self selectedLine]){
+            [linesInProcess removeAllObjects];
+        } else if ([gr state]==UIGestureRecognizerStateEnded){
+            [self setSelectedLine:nil];
+        }
+        [self setNeedsDisplay];
+    }
 }
 
 -(void)tap:(UIGestureRecognizer *)gr
